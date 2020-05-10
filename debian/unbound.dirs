@@ -7,4 +7,5 @@ usr/sbin
 usr/share/doc/unbound/examples
 usr/share/man/man5
 usr/share/man/man8
+usr/lib/python2.7/dist-packages
 var/lib/unbound

@@ -42,11 +42,11 @@ binary-arch: build
 	install -D -m 0755 unbound debian/unbound/usr/sbin/unbound
 	$(MAKE) _unbound.la
 	install -D -m 0644 .libs/_unbound.so \
-		debian/python-unbound/usr/lib/python2.7/dist-packages/_unbound.so
+		debian/unbound/usr/lib/python2.7/dist-packages/_unbound.so
 	install -m 0644 \
 		pythonmod/unboundmodule.py \
 		libunbound/python/unbound.py \
-		debian/python-unbound/usr/lib/python2.7/dist-packages
+		debian/unbound/usr/lib/python2.7/dist-packages
 
 	$(MAKE) clean
 

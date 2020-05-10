@@ -13,7 +13,8 @@ Build-Depends:
  bison,
  libssl-dev,
  libevent-dev,
- libexpat1-dev
+ libexpat1-dev,
+ python2.7-dev
 Standards-Version: 3.9.5
 Homepage: https://www.unbound.net/
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=users/edmonds/unbound.git

@@ -22,5 +22,5 @@ COPY ./debian /tmp/unbound-${UNBOUND_VERSION}/debian
 RUN cd /tmp \
     && cp unbound-${UNBOUND_VERSION}.tar.gz unbound_${UNBOUND_VERSION}.orig.tar.gz \
     && cd /tmp/unbound-${UNBOUND_VERSION} \
-    && apt-get install -y libssl-dev libevent-dev libexpat1-dev \
+    && apt-get install -y libssl-dev libevent-dev libexpat1-dev python python2.7-dev python2.7 swig \
     && dpkg-buildpackage -us -uc

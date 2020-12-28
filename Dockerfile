@@ -1,13 +1,12 @@
 
-FROM lochnair/wheezy-mips:latest AS builder
+FROM docker.io/nixm0nk3y/edgerouter-build-stretch:latest AS builder
 
 LABEL maintainer="Nick Gregory <docker@openenterprise.co.uk>"
 
 ARG UNBOUND_VERSION="1.10.0"
 ARG UNBOUND_SHA256="152f486578242fe5c36e89995d0440b78d64c05123990aae16246b7f776ce955"
 
-RUN /bin/sed -i -e 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
-    && apt-get update \
+RUN apt-get update \
     && apt-get install -y curl build-essential dh-autoreconf flex bison bc git pkg-config
 
 RUN cd /tmp \

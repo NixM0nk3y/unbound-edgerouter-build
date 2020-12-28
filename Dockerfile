@@ -3,8 +3,8 @@ FROM docker.io/nixm0nk3y/edgerouter-build-stretch:latest AS builder
 
 LABEL maintainer="Nick Gregory <docker@openenterprise.co.uk>"
 
-ARG UNBOUND_VERSION="1.10.0"
-ARG UNBOUND_SHA256="152f486578242fe5c36e89995d0440b78d64c05123990aae16246b7f776ce955"
+ARG UNBOUND_VERSION="1.13.0"
+ARG UNBOUND_SHA256="a954043a95b0326ca4037e50dace1f3a207a0a19e9a4a22f4c6718fc623db2a1"
 
 RUN apt-get update \
     && apt-get install -y curl build-essential dh-autoreconf flex bison bc git pkg-config

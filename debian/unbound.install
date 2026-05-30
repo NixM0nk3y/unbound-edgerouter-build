@@ -1,8 +1,10 @@
 debian/unbound.conf etc/unbound
 debian/root-auto-trust-anchor-file.conf etc/unbound/unbound.conf.d
-usr/sbin/unbound-control usr/sbin
+# unbound-control + unbound-checkconf are installed by debian/rules from the
+# first (--with-pythonmodule) build pass, NOT from debian/tmp — so checkconf can
+# validate `module-config: python`. Only unbound-control-setup (a shell script,
+# build-independent) comes from debian/tmp here.
 usr/sbin/unbound-control-setup usr/sbin
-usr/sbin/unbound-checkconf usr/sbin
 usr/share/man/man5/unbound.conf.5 usr/share/man/man5
 usr/share/man/man8/unbound-checkconf.8 usr/share/man/man8
 usr/share/man/man8/unbound-control.8 usr/share/man/man8

@@ -38,8 +38,16 @@ binary-arch: build
 		--with-pidfile=/var/run/unbound.pid \
 		--with-libevent \
 		$(CONFIGURE_ARGS)
-	$(MAKE) unbound
+	# Build the daemon AND unbound-checkconf/unbound-control in THIS pass, so
+	# they share the daemon's --with-pythonmodule. Otherwise checkconf comes from
+	# the second (lean, no-pythonmodule) pass below and false-rejects
+	# `module-config: python` even though the daemon runs it. Installed straight
+	# into debian/unbound here; the matching lines are dropped from
+	# debian/unbound.install so dh_install does not overwrite them from debian/tmp.
+	$(MAKE) unbound unbound-checkconf unbound-control
 	install -D -m 0755 unbound debian/unbound/usr/sbin/unbound
+	install -D -m 0755 unbound-checkconf debian/unbound/usr/sbin/unbound-checkconf
+	install -D -m 0755 unbound-control debian/unbound/usr/sbin/unbound-control
 	$(MAKE) _unbound.la
 	install -D -m 0644 .libs/_unbound.so \
 		debian/unbound/usr/lib/python2.7/dist-packages/_unbound.so

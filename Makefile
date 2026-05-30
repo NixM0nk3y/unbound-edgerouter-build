@@ -23,6 +23,12 @@ IMAGE=$(REGISTRY_HOST)/$(USERNAME)/$(NAME)
 VERSION=$(shell . $(RELEASE_SUPPORT) ; getVersion)
 TAG=$(shell . $(RELEASE_SUPPORT); getTag)
 
+# Debian package version — sourced from debian/changelog (the deb revision,
+# e.g. 1.25.1-1). Distinct from the image VERSION above; the post-build cp paths
+# track the package the build actually emits, so an upstream bump only needs the
+# changelog edited (not this Makefile).
+DEB_VERSION=$(shell sed -n '1s/^unbound (\([^)]*\)).*/\1/p' debian/changelog)
+
 SHELL=/bin/bash
 
 DOCKER_BUILD_CONTEXT=.
@@ -37,12 +43,10 @@ pre-build:
 
 post-build:
 	mkdir -p ./packages
-	docker create -ti --name dummy ${IMAGE}:latest bash  
-	docker cp dummy:/tmp/unbound_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/unbound-anchor_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/unbound-host_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/libunbound2_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/libunbound-dev_1.13.0-1_mips.deb ./packages/
+	docker create -ti --name dummy ${IMAGE}:latest bash
+	for pkg in unbound unbound-anchor unbound-host libunbound2 libunbound-dev ; do \
+		docker cp dummy:/tmp/$${pkg}_$(DEB_VERSION)_mips.deb ./packages/ ; \
+	done
 	docker rm -f dummy
 
 pre-push:

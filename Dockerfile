@@ -3,10 +3,11 @@ FROM docker.io/nixm0nk3y/edgerouter-build-stretch:latest AS builder
 
 LABEL maintainer="Nick Gregory <docker@openenterprise.co.uk>"
 
-ARG UNBOUND_VERSION="1.13.0"
-ARG UNBOUND_SHA256="a954043a95b0326ca4037e50dace1f3a207a0a19e9a4a22f4c6718fc623db2a1"
+ARG UNBOUND_VERSION="1.25.1"
+ARG UNBOUND_SHA256="0fe8b6277b0959cfd17562debac0aa5f71e0b02dc4ffa9c60271c583edab586f"
 
-RUN apt-get update \
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y curl build-essential dh-autoreconf flex bison bc git pkg-config
 
 RUN cd /tmp \

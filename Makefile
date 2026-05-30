@@ -37,13 +37,7 @@ pre-build:
 
 post-build:
 	mkdir -p ./packages
-	docker create -ti --name dummy ${IMAGE}:latest bash  
-	docker cp dummy:/tmp/unbound_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/unbound-anchor_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/unbound-host_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/libunbound2_1.13.0-1_mips.deb ./packages/
-	docker cp dummy:/tmp/libunbound-dev_1.13.0-1_mips.deb ./packages/
-	docker rm -f dummy
+	./extractdeb.sh
 
 pre-push:
 
